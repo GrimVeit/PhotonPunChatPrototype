@@ -11,13 +11,13 @@ public class ChooseChannelPanel : MovePanel
         chooseChannel.Initialize();
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
-        base.OpenPanel();
+        base.ActivatePanel();
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
-        base.ClosePanel();
+        base.DeactivatePanel();
     }
 }

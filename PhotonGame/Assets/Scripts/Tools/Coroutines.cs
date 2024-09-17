@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Coroutines : MonoBehaviour
@@ -28,5 +27,15 @@ public class Coroutines : MonoBehaviour
     public static void StopRoutine(Coroutine coroutine)
     {
         instance.StopCoroutine(coroutine);
+    }
+
+    public static void Start(IEnumerator enumerator)
+    {
+        instance.StartCoroutine(enumerator);
+    }
+
+    public static void Stop(IEnumerator enumerator)
+    {
+        instance.StopCoroutine(enumerator);
     }
 }

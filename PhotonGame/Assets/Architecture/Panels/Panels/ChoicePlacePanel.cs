@@ -13,15 +13,15 @@ public class ChoicePlacePanel : Panel
         base.Initialize();
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
-        base.OpenPanel();
+        base.ActivatePanel();
         animator.SetBool(KEY_ANIMATE, true);
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
-        base.ClosePanel();
+        base.DeactivatePanel();
         animator.SetBool(KEY_ANIMATE, false);
     }
 }

@@ -18,22 +18,22 @@ public class PanelsControl : MonoBehaviour
     {
         if (this.panel != null)
         {
-            this.panel.ClosePanel();
+            this.panel.DeactivatePanel();
             this.panel = null;
         }
 
         this.panel = panel;
-        this.panel.OpenPanel();
+        this.panel.ActivatePanel();
     }
 
     public void OpenNewPanel(Panel panel)
     {
-        panel.OpenPanel();
+        panel.ActivatePanel();
     }
 
     public void CloseNewPanel(Panel panel)
     {
-        panel.ClosePanel();
+        panel.DeactivatePanel();
     }
 
 }

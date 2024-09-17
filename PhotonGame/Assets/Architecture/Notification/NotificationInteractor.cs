@@ -27,12 +27,12 @@ namespace Lessons.Architecture
             spawnNotification = notificationControl.SetNotificationPanel(notificationPref);
             spawnNotification.Initialize();
             spawnNotification.SetText(hand, description);
-            spawnNotification.OpenPanel();
+            spawnNotification.ActivatePanel();
         }
 
         private void DestroyNotification()
         {
-            spawnNotification.ClosePanel();
+            spawnNotification.DeactivatePanel();
             spawnNotification = null;
         }
     }

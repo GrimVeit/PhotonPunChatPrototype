@@ -8,7 +8,7 @@ public class MenuScenesPanelsControl : PanelsControl
     {
         base.Initialize();
 
-        transitionPanel.ClosePanel();
+        transitionPanel.DeactivatePanel();
     }
 
 }

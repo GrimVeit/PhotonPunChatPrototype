@@ -21,7 +21,7 @@ public class Notification : MovePanel
 
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
@@ -33,14 +33,14 @@ public class Notification : MovePanel
         animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
         panel.SetActive(true);
         tween = transform.DOLocalMove(from + new Vector3(-175, 0, 0), time).OnComplete(() =>
         {
-            Invoke(nameof(ClosePanel), 2);
+            Invoke(nameof(DeactivatePanel), 2);
         });
         animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }

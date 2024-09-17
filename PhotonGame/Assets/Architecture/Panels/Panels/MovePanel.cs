@@ -19,7 +19,7 @@ public class MovePanel : Panel
         animationInteractor = Game.GetInteractor<PanelAnimationInteractor>();
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
@@ -27,7 +27,7 @@ public class MovePanel : Panel
         animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 

@@ -10,7 +10,7 @@ public class TransitionPanel : MovePanel
 
     private int sceneNumber;
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
@@ -20,7 +20,7 @@ public class TransitionPanel : MovePanel
         } );
         animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
         PlaySound();

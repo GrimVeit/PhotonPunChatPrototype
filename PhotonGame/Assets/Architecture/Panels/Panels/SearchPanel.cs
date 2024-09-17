@@ -16,15 +16,15 @@ public class SearchPanel : Panel
         base.Initialize();
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
-        base.OpenPanel();
+        base.ActivatePanel();
         tween = phone.DORotate(vectorToRotatePhone, timeToRotate).SetEase(ease).SetLoops(-1, LoopType.Yoyo);
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
-        base.ClosePanel();
+        base.DeactivatePanel();
         tween.Kill();
 
     }

@@ -16,21 +16,21 @@ public class RightGameplayPanel : CustomPanel
         coins.Initialize();
     }
 
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
         if (tweenArrow != null) { tweenArrow.Kill(); }
         //audioInteractor.PlayEffectSound("OpenOther");
         tweenArrow = image.transform.DOLocalRotate(new Vector3(0, 0, 180), time);
 
-        base.OpenPanel();
+        base.ActivatePanel();
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
         if (tweenArrow != null) { tweenArrow.Kill(); }
         //audioInteractor.PlayEffectSound("OpenMain");
         tweenArrow = image.transform.DOLocalRotate(Vector3.zero, time);
 
-        base.ClosePanel();
+        base.DeactivatePanel();
     }
 }

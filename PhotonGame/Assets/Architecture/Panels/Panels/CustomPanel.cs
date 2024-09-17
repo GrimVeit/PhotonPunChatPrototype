@@ -13,29 +13,29 @@ public class CustomPanel : MovePanel
     public UnityEvent OnCompleteClosePanel;
 
     [SerializeField] private Button button;
-    public override void OpenPanel()
+    public override void ActivatePanel()
     {
         OnStartOpenPanel?.Invoke();
         if (tween != null) { tween.Kill(); }
         tween = panel.transform.DOLocalMove(to, time).OnComplete(()=>
         {
 
-            button.onClick.RemoveListener(OpenPanel);
-            button.onClick.AddListener(ClosePanel);
+            button.onClick.RemoveListener(ActivatePanel);
+            button.onClick.AddListener(DeactivatePanel);
 
             OnCompleteOpenPanel?.Invoke();
         });
         animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
 
-    public override void ClosePanel()
+    public override void DeactivatePanel()
     {
         OnStartClosePanel?.Invoke();
         if (tween != null) { tween.Kill(); }
         tween = panel.transform.DOLocalMove(from, time).OnComplete(() =>
         {
-            button.onClick.RemoveListener(ClosePanel);
-            button.onClick.AddListener(OpenPanel);
+            button.onClick.RemoveListener(DeactivatePanel);
+            button.onClick.AddListener(ActivatePanel);
 
             OnCompleteClosePanel?.Invoke();
         });
