@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PhotonChatView : MonoBehaviour
+public class PhotonChatView : View
 {
     public Action<string> OnSubmitMessage;
 

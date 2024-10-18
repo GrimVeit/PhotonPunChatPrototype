@@ -1,5 +1,6 @@
 using BaCon;
 using System.Collections;
+using System.Net.WebSockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,11 @@ public class GameEntryPoint : MonoBehaviour
         Object.DontDestroyOnLoad(rootView.gameObject);
         mainGameContainer.RegisterInstance(rootView);
 
+        PhotonNetworkModel photonNetworkModel = new PhotonNetworkModel();
+        mainGameContainer.RegisterInstance(photonNetworkModel);
+
         PhotonChatModel photonChatModel = new PhotonChatModel();
+        photonChatModel.Initialize();
         mainGameContainer.RegisterInstance(photonChatModel);
     }
 
@@ -102,14 +107,17 @@ public class GameEntryPoint : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
         yield return LoadScene(Scenes.Initialize);
+
+        currentSceneContainer = new DIContainer(mainGameContainer);
+        var sceneEntryPoint = FindObjectOfType<InitializeSceneEntryPoint>();
+        sceneEntryPoint.Run(currentSceneContainer);
+
         yield return new WaitForSeconds(0.2f);
 
         yield return rootView.HideLoadingScreen();
-
-        coroutines.StartCoroutine(LoadAndStartLoadScene());
     }
 
-    private IEnumerator LoadAndStartLoadScene()
+    private IEnumerator LoadAndStartTransitScene()
     {
         rootView.SetLoadScreen(0);
 
@@ -118,22 +126,22 @@ public class GameEntryPoint : MonoBehaviour
         currentSceneContainer?.Dispose();
 
         yield return new WaitForSeconds(0.3f);
+        yield return LoadScene(Scenes.Boot);
         yield return LoadScene(Scenes.Load);
         yield return new WaitForSeconds(0.2f);
 
         currentSceneContainer = new DIContainer(mainGameContainer);
-        var sceneEntryPoint = Object.FindObjectOfType<LoadSceneEntryPoint>();
+        var sceneEntryPoint = Object.FindObjectOfType<TransitSceneEntryPoint>();
+        sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
+        sceneEntryPoint.OnLoadMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
         sceneEntryPoint.Run(currentSceneContainer);
-
-        sceneEntryPoint.OnGoToMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
-        sceneEntryPoint.OnGoToSingleScene += () => coroutines.StartCoroutine(LoadAndStartSingleScene());
 
         yield return rootView.HideLoadingScreen();
 
-        coroutines.StartCoroutine(LoadAndStartLoadScene());
+        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
-    private IEnumerator LoadAndStartSingleScene()
+    private IEnumerator LoadAndStartSingleplayerScene()
     {
         rootView.SetLoadScreen(0);
 
@@ -146,15 +154,14 @@ public class GameEntryPoint : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         currentSceneContainer = new DIContainer(mainGameContainer);
-        var sceneEntryPoint = Object.FindObjectOfType<LoadSceneEntryPoint>();
+        var sceneEntryPoint = Object.FindObjectOfType<SingleplayerSceneEntryPoint>();
+        sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
+        sceneEntryPoint.OnLoadTransitScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
         sceneEntryPoint.Run(currentSceneContainer);
-
-        sceneEntryPoint.OnGoToMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartLoadScene());
-        sceneEntryPoint.OnGoToSingleScene += () => { coroutines.StartCoroutine(LoadAndStartSingleScene()); };
 
         yield return rootView.HideLoadingScreen();
 
-        coroutines.StartCoroutine(LoadAndStartLoadScene());
+        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
     private IEnumerator LoadAndStartMultiplayerScene()
@@ -170,15 +177,14 @@ public class GameEntryPoint : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         currentSceneContainer = new DIContainer(mainGameContainer);
-        var sceneEntryPoint = Object.FindObjectOfType<LoadSceneEntryPoint>();
+        var sceneEntryPoint = Object.FindObjectOfType<MultiplayerSceneEntryPoint>();
+        sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
+        sceneEntryPoint.OnLoadMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
         sceneEntryPoint.Run(currentSceneContainer);
-
-        sceneEntryPoint.OnGoToMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartLoadScene());
-        sceneEntryPoint.OnGoToSingleScene += () => coroutines.StartCoroutine(LoadAndStartSingleScene());
 
         yield return rootView.HideLoadingScreen();
 
-        coroutines.StartCoroutine(LoadAndStartLoadScene());
+        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
 

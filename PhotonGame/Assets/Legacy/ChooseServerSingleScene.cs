@@ -1,11 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using Photon.Realtime;
-using Lessons.Architecture;
 
 public class ChooseServerSingleScene : ChooseServer
 {

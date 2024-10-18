@@ -4,11 +4,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotonNetworkModel
+public class PhotonNetworkModel : IConnectionCallbacks, IMatchmakingCallbacks
 {
     public event Action<DisconnectCause> OnDisconnectedEvent_Cause;
     public event Action<List<RoomInfo>> OnRoomListUpdateEvent;
-
     public event Action OnConnectedEvent;
     public event Action OnDisconnectedEvent;
     public event Action OnCreatedRoomEvent;
@@ -21,6 +20,7 @@ public class PhotonNetworkModel
     public event Action OnLeftRoomEvent;
 
     private readonly RoomOptions roomOptions = new();
+    private string selectRegion;
 
     public void LeaveRoom()
     {
@@ -49,6 +49,81 @@ public class PhotonNetworkModel
     {
         Debug.Log("Подключение к " + region);
         PhotonNetwork.ConnectToRegion(region);
+    }
+
+    public void SelectRegion(ServerRegion serverRegion)
+    {
+        switch (serverRegion)
+        {
+            case ServerRegion.Asia:
+                selectRegion = "asia";
+                break;
+
+            case ServerRegion.Au:
+                selectRegion = "au";
+                break;
+
+            case ServerRegion.Cae:
+                selectRegion = "cae";
+                break;
+
+            case ServerRegion.Eu:
+                selectRegion = "eu";
+                break;
+
+            case ServerRegion.Hk:
+                selectRegion = "hk";
+                break;
+
+            case ServerRegion.In:
+                selectRegion = "in";
+                break;
+
+            case ServerRegion.Jp:
+                selectRegion = "jp";
+                break;
+
+            case ServerRegion.Kr:
+                selectRegion = "kr";
+                break;
+
+            case ServerRegion.Ru:
+                selectRegion = "ru";
+                break;
+
+            case ServerRegion.Sa:
+                selectRegion = "sa";
+                break;
+
+            case ServerRegion.Tr:
+                selectRegion = "tr";
+                break;
+
+            case ServerRegion.Uae:
+                selectRegion = "uae";
+                break;
+
+            case ServerRegion.Us:
+                selectRegion = "us";
+                break;
+
+            case ServerRegion.Ussc:
+                selectRegion = "ussc";
+                break;
+
+            case ServerRegion.Usw:
+                selectRegion = "usw";
+                break;
+
+            case ServerRegion.Za:
+                selectRegion = "za";
+                break;
+        }
+    }
+
+    public void ConnectToChooseRegion()
+    {
+        PhotonNetwork.ConnectToRegion(selectRegion);
     }
 
     public void DisconnectServer()

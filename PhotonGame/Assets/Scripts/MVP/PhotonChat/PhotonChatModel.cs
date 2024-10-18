@@ -33,6 +33,8 @@ public class PhotonChatModel : IChatClientListener
         //chatAppSettings.FixedRegion = region;
         //Debug.Log($"Подключение к {chatClient.ChatRegion}");
         chatClient.ConnectUsingSettings(PhotonNetwork.PhotonServerSettings.AppSettings.GetChatSettings());
+
+        //chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new AuthenticationValues("Л"))
     }
 
     public void Disconnect()
@@ -40,24 +42,9 @@ public class PhotonChatModel : IChatClientListener
         chatClient.Disconnect();
     }
 
-    public void SendPublishMessage(string message)
+    public void SendPublishMessage(string channelName, string message)
     {
-        chatClient.PublishMessage(PhotonNetwork.CurrentRoom.Name, message);
-    }
-
-    public void SendPublishMessageOnChatFromUser(string playerName, string message)
-    {
-        chatClient.PublishMessage(PhotonNetwork.CurrentRoom.Name, $"{playerName}: {message}");
-    }
-
-    public void SendPublishMessageOnJoinRoom(string playerName)
-    {
-        chatClient.PublishMessage(PhotonNetwork.CurrentRoom.Name, $"{playerName} вступил в игру");
-    }
-
-    public void SendPublishMessageOnExitRoom(string playerName)
-    {
-        chatClient.PublishMessage(PhotonNetwork.CurrentRoom.Name, $"{playerName} покинул игру");
+        chatClient.PublishMessage(channelName, message);
     }
 
     public void Service()

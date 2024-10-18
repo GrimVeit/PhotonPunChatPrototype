@@ -30,7 +30,6 @@ public class Notification : MovePanel
             tween.Kill();
             Destroy(gameObject);
         });
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
 
     public override void ActivatePanel()
@@ -42,6 +41,5 @@ public class Notification : MovePanel
         {
             Invoke(nameof(DeactivatePanel), 2);
         });
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
 }

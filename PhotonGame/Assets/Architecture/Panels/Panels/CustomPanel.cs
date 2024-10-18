@@ -25,7 +25,6 @@ public class CustomPanel : MovePanel
 
             OnCompleteOpenPanel?.Invoke();
         });
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
 
     public override void DeactivatePanel()
@@ -39,6 +38,5 @@ public class CustomPanel : MovePanel
 
             OnCompleteClosePanel?.Invoke();
         });
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
 }

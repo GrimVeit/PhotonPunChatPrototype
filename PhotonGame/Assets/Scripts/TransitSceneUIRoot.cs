@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadSceneUIRoot : MonoBehaviour
+public class TransitSceneUIRoot : MonoBehaviour
 {
     public void Initialize()
     {

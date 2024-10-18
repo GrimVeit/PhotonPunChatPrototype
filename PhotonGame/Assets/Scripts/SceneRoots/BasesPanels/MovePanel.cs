@@ -1,8 +1,5 @@
 using DG.Tweening;
-using Lessons.Architecture;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class MovePanel : Panel
@@ -11,12 +8,10 @@ public class MovePanel : Panel
     [SerializeField] protected Vector3 to;
     [SerializeField] protected float time;
     [SerializeField] protected CanvasGroup canvasGroup;
-    protected PanelAnimationInteractor animationInteractor;
     protected Tween tween;
     public override void Initialize()
     {
         base.Initialize();
-        animationInteractor = Game.GetInteractor<PanelAnimationInteractor>();
     }
 
     public override void DeactivatePanel()
@@ -24,21 +19,33 @@ public class MovePanel : Panel
         if (tween != null) { tween.Kill(); }
 
         tween = panel.transform.DOLocalMove(from, time).OnComplete(() => panel.SetActive(false));
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
+        CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
 
     public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
 
-        PlaySound();
         panel.SetActive(true);
         tween = panel.transform.DOLocalMove(to, time);
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
+        CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
 
-    protected virtual void PlaySound()
+    public void CanvasGroupAlpha(CanvasGroup canvasGroup, float from, float to, float time)
     {
-        //audioInteractor.PlayEffectSound("OpenMain");
+        Coroutines.StartRoutine(SmoothVal(canvasGroup, from, to, time));
+    }
+    private IEnumerator SmoothVal(CanvasGroup canvasGroup, float from, float to, float timer)
+    {
+        float t = 0.0f;
+        canvasGroup.alpha = from;
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime * (1.0f / timer);
+            if (canvasGroup != null)
+                canvasGroup.alpha = Mathf.Lerp(from, to, t); //Может быть удалён
+            yield return 0;
+        }
     }
 }

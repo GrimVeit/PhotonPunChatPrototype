@@ -4,15 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotonNetworkView : MonoBehaviour
+public class PhotonNetworkView : View
 {
     public event Action<string> OnChooseChannel;
-    public event Action<string> OnChooseServer;
+    public event Action<ServerRegion> OnChooseServer;
 
     [SerializeField] private List<PhotonNetworkServer> photonNetworkServers = new List<PhotonNetworkServer>();
 
-    [SerializeField] private TMP_InputField channelInputField;
-    [SerializeField] private Button channelSubmit;
+    //[SerializeField] private TMP_InputField channelInputField;
+    //[SerializeField] private Button channelSubmit;
 
     public void Initialize()
     {
@@ -22,7 +22,7 @@ public class PhotonNetworkView : MonoBehaviour
             photonNetworkServers[i].Initialize();
         }
 
-        channelSubmit.onClick.AddListener(HandlerClickToSubmitChannel);
+        //channelSubmit.onClick.AddListener(HandlerClickToSubmitChannel);
     }
 
     public void Dispose()
@@ -33,22 +33,22 @@ public class PhotonNetworkView : MonoBehaviour
             photonNetworkServers[i].Dispose();
         }
 
-        channelSubmit.onClick.RemoveListener(HandlerClickToSubmitChannel);
+        //channelSubmit.onClick.RemoveListener(HandlerClickToSubmitChannel);
     }
 
     #region Input
 
-    private void ChooseServer(string serverID)
+    private void ChooseServer(ServerRegion region)
     {
-        OnChooseServer?.Invoke(serverID);
+        OnChooseServer?.Invoke(region);
     }
 
-    private void HandlerClickToSubmitChannel()
-    {
-        string channel = channelInputField.text;
+    //private void HandlerClickToSubmitChannel()
+    //{
+    //    string channel = channelInputField.text;
 
-        OnChooseChannel?.Invoke(channel);
-    }
+    //    OnChooseChannel?.Invoke(channel);
+    //}
 
     #endregion
 }

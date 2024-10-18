@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,19 +16,16 @@ public class TransitionPanel : MovePanel
         {
             panel.SetActive(false);
         } );
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 1, 0, time);
     }
     public override void ActivatePanel()
     {
         if (tween != null) { tween.Kill(); }
-        PlaySound();
         panel.SetActive(true);
         tween = panel.transform.DOLocalMove(to, time).OnComplete(() => 
         {
             
             
         } );
-        animationInteractor.CanvasGroupAlpha(canvasGroup, 0, 1, time);
     }
 
     public void LoadSceneNumber(int value)
@@ -42,10 +37,5 @@ public class TransitionPanel : MovePanel
     private void LoadScene()
     {
         SceneManager.LoadScene(sceneNumber);
-    }
-
-    protected override void PlaySound()
-    {
-        //audioInteractor.PlayEffectSound("Whoosh");
     }
 }
