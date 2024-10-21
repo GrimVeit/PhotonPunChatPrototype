@@ -19,6 +19,8 @@ public class PhotonNetworkModel : IConnectionCallbacks, IMatchmakingCallbacks
     public event Action OnLeftLobbyEvent;
     public event Action OnLeftRoomEvent;
 
+    public event Action OnSelectRegion;
+
     private readonly RoomOptions roomOptions = new();
     private string selectRegion;
 
@@ -119,6 +121,8 @@ public class PhotonNetworkModel : IConnectionCallbacks, IMatchmakingCallbacks
                 selectRegion = "za";
                 break;
         }
+
+        OnSelectRegion?.Invoke();
     }
 
     public void ConnectToChooseRegion()

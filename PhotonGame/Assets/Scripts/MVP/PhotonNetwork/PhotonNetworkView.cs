@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PhotonNetworkView : View
 {
     public event Action<string> OnChooseChannel;
-    public event Action<ServerRegion> OnChooseServer;
+    public event Action<ServerRegion> OnSelectServer;
 
     [SerializeField] private List<PhotonNetworkServer> photonNetworkServers = new List<PhotonNetworkServer>();
 
@@ -40,7 +40,7 @@ public class PhotonNetworkView : View
 
     private void ChooseServer(ServerRegion region)
     {
-        OnChooseServer?.Invoke(region);
+        OnSelectServer?.Invoke(region);
     }
 
     //private void HandlerClickToSubmitChannel()

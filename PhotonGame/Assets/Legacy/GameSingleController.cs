@@ -1,8 +1,6 @@
 using Lessons.Architecture;
-using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 public class GameSingleController : MonoBehaviour
 {

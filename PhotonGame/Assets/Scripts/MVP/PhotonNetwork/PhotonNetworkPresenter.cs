@@ -32,13 +32,13 @@ public class PhotonNetworkPresenter
 
     private void ActivateEvents()
     {
-        photonNetworkView.OnChooseServer += photonNetworkModel.ConnectToRegion;
+        photonNetworkView.OnSelectServer += photonNetworkModel.SelectRegion;
         photonNetworkView.OnChooseChannel += photonNetworkModel.JoinOrCreateRoom;
     }
 
     private void DeactivateEvents()
     {
-        photonNetworkView.OnChooseServer -= photonNetworkModel.ConnectToRegion;
+        photonNetworkView.OnSelectServer -= photonNetworkModel.SelectRegion;
         photonNetworkView.OnChooseChannel -= photonNetworkModel.JoinOrCreateRoom;
     }
 
@@ -177,6 +177,12 @@ public class PhotonNetworkPresenter
     {
         add { photonNetworkModel.OnLeftRoomEvent += value; }
         remove { photonNetworkModel.OnLeftRoomEvent -= value; }
+    }
+
+    public event Action OnSelectRegion
+    {
+        add { photonNetworkModel.OnSelectRegion += value; }
+        remove { photonNetworkModel.OnSelectRegion -= value; }
     }
 
     #endregion

@@ -23,14 +23,12 @@ public class CharacterSpawnerPresenter
 
     private void ActivateEvents()
     {
-        characterSpawnerView.OnClickToSpawnButton += characterSpawnerModel.SpawnLocalCharacter;
-        characterSpawnerView.OnClickToDestroyButton += characterSpawnerModel.DestroyCharacter;
+
     }
 
     private void DeactivateEvents()
     {
-        characterSpawnerView.OnClickToSpawnButton -= characterSpawnerModel.SpawnLocalCharacter;
-        characterSpawnerView.OnClickToDestroyButton -= characterSpawnerModel.DestroyCharacter;
+
     }
 
     #region Input
@@ -47,14 +45,24 @@ public class CharacterSpawnerPresenter
         remove { characterSpawnerModel.OnDestroyCharacter -= value; }
     }
 
-    public void SpawnCharacter()
+    public void SpawnLocalCharacter()
     {
         characterSpawnerModel.SpawnLocalCharacter();
     }
 
-    public void DestroyCharacter()
+    public void SpawnMultiplayerCharacter()
     {
-        characterSpawnerModel.DestroyCharacter();
+        characterSpawnerModel.SpawnLocalCharacter();
+    }
+
+    public void DestroyLocalCharacter()
+    {
+        characterSpawnerModel.DestroyLocalCharacter();
+    }
+
+    public void DestroyMultiplayerCharacter()
+    {
+        characterSpawnerModel.DestroyMultiplayerCharacter();
     }
 
     #endregion

@@ -32,6 +32,8 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
     private void Initialize()
     {
+        ActivateEvents();
+
         photonNetworkPresenter = new PhotonNetworkPresenter
             (dIContainer.Resolve<PhotonNetworkModel>(), 
             viewContainer.GetView<PhotonNetworkView>());
@@ -53,15 +55,60 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
         characterPresenter.Initialize();
     }
 
-    private void Dispose()
+    private void ActivateEvents()
     {
-        characterSpawnerPresenter.Dispose();
-        characterPresenter.Dispose();
+        ActivateTransitEvents();
+
+        sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
+        sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
     }
+
+    private void DeactivateEvents()
+    {
+        DeactivateTransitEvents();
+
+        sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
+        sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
+    }
+
+    private void ActivateTransitEvents()
+    {
+        photonNetworkPresenter.OnSelectRegion += LoadTransitScene;
+
+        sceneRootView.OnClickToOpenGamePanel += sceneRootView.ActivateGamePanel;
+        sceneRootView.OnClickToOpenSettingsPanel += sceneRootView.ActivateSettingsPanel;
+        sceneRootView.OnClickToOpenChooseServerPanel += sceneRootView.ActivateChooseServerPanel;
+
+        sceneRootView.OnClickToOpenMenuPanelFromGamePanel += sceneRootView.ActivateMenuPanel;
+        sceneRootView.OnClickToOpenMenuPanelFromSettingsPanel += sceneRootView.ActivateMenuPanel;
+        sceneRootView.OnClickToOpenMenuPanelFromChooseServerPanel += sceneRootView.ActivateMenuPanel;
+    }
+
+    private void DeactivateTransitEvents()
+    {
+        photonNetworkPresenter.OnSelectRegion -= LoadTransitScene;
+
+        sceneRootView.OnClickToOpenGamePanel -= sceneRootView.ActivateGamePanel;
+        sceneRootView.OnClickToOpenSettingsPanel -= sceneRootView.ActivateSettingsPanel;
+        sceneRootView.OnClickToOpenChooseServerPanel -= sceneRootView.ActivateChooseServerPanel;
+
+        sceneRootView.OnClickToOpenMenuPanelFromGamePanel -= sceneRootView.ActivateMenuPanel;
+        sceneRootView.OnClickToOpenMenuPanelFromSettingsPanel -= sceneRootView.ActivateMenuPanel;
+        sceneRootView.OnClickToOpenMenuPanelFromChooseServerPanel -= sceneRootView.ActivateMenuPanel;
+    }
+
 
     private void OnDestroy()
     {
         Dispose();
+    }
+
+    private void Dispose()
+    {
+        DeactivateEvents();
+
+        characterSpawnerPresenter.Dispose();
+        characterPresenter.Dispose();
     }
 
     #region Input

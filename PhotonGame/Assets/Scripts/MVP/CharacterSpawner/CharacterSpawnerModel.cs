@@ -35,12 +35,19 @@ public class CharacterSpawnerModel
         OnSpawnCharacter?.Invoke(currentCharacter);
     }
 
-    public void DestroyCharacter()
+    public void DestroyLocalCharacter()
     {
         if (currentCharacter == null) return;
 
         UnityEngine.Object.Destroy(currentCharacter);
         OnDestroyCharacter?.Invoke();
+    }
+
+    public void DestroyMultiplayerCharacter()
+    {
+        if (currentCharacter == null) return;
+
+        PhotonNetwork.Destroy(currentCharacter.gameObject);
     }
 
     private int GetRandomCharacterIndex()

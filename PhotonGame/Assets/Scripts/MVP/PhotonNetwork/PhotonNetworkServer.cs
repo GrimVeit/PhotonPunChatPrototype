@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotonNetworkServer : MonoBehaviour
+[System.Serializable]
+public class PhotonNetworkServer
 {
     public event Action<ServerRegion> OnChooseServer;
 
@@ -44,5 +43,6 @@ public enum ServerRegion
     Us, //USA East, - Washington D.C.
     Usw, //USA West, - San Jose
     Ussc, //USA South Central, - Dallas
-    Ru //Russia
+    Ru, //Russia
+    Local
 }

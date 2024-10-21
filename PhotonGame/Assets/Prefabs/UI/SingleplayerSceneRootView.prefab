@@ -719,7 +719,6 @@ GameObject:
   - component: {fileID: 2521674726087773108}
   - component: {fileID: 2521674726087773107}
   - component: {fileID: 2521674726087773106}
-  - component: {fileID: 5246517616641534132}
   m_Layer: 5
   m_Name: SOUTH_AFRICA
   m_TagString: Untagged
@@ -830,20 +829,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5246517616641534132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674726087773104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674726087773106}
 --- !u!1 &2521674726090452885
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +841,6 @@ GameObject:
   - component: {fileID: 2521674726090452889}
   - component: {fileID: 2521674726090452888}
   - component: {fileID: 2521674726090452887}
-  - component: {fileID: 6360769103031510611}
   m_Layer: 5
   m_Name: ASIA
   m_TagString: Untagged
@@ -967,20 +951,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6360769103031510611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674726090452885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: asia
-  serverButton: {fileID: 2521674726090452887}
 --- !u!1 &2521674726111869478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1566,6 @@ GameObject:
   - component: {fileID: 2521674726297597942}
   - component: {fileID: 2521674726297597941}
   - component: {fileID: 2521674726297597940}
-  - component: {fileID: 8483202333375240871}
   m_Layer: 5
   m_Name: WEST_USA
   m_TagString: Untagged
@@ -1707,20 +1676,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8483202333375240871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674726297597938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674726297597940}
 --- !u!1 &2521674726340263823
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,15 +2651,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   photonNetworkServers:
-  - {fileID: 7778008654648360971}
-  - {fileID: 6360769103031510611}
-  - {fileID: 8483202333375240871}
-  - {fileID: 8197884092514191344}
-  - {fileID: 8800597842548613469}
-  - {fileID: 7808212514919907413}
-  - {fileID: 5246517616641534132}
-  - {fileID: 1284238058694189298}
-  - {fileID: 9008217866794542000}
+  - region: 0
+    serverButton: {fileID: 2521674726090452887}
+  - region: 1
+    serverButton: {fileID: 2521674727297671677}
+  - region: 2
+    serverButton: {fileID: 0}
+  - region: 3
+    serverButton: {fileID: 2521674727477786566}
+  - region: 4
+    serverButton: {fileID: 0}
+  - region: 5
+    serverButton: {fileID: 0}
+  - region: 6
+    serverButton: {fileID: 0}
+  - region: 7
+    serverButton: {fileID: 0}
+  - region: 8
+    serverButton: {fileID: 2521674727602273183}
+  - region: 9
+    serverButton: {fileID: 2521674726860680505}
+  - region: 10
+    serverButton: {fileID: 0}
+  - region: 11
+    serverButton: {fileID: 0}
+  - region: 12
+    serverButton: {fileID: 2521674727652061868}
+  - region: 13
+    serverButton: {fileID: 2521674726297597940}
+  - region: 14
+    serverButton: {fileID: 0}
+  - region: 15
+    serverButton: {fileID: 0}
 --- !u!114 &3522029544412974133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3301,7 +3279,6 @@ GameObject:
   - component: {fileID: 2521674726860680507}
   - component: {fileID: 2521674726860680506}
   - component: {fileID: 2521674726860680505}
-  - component: {fileID: 8800597842548613469}
   m_Layer: 5
   m_Name: SOUTH_KOREA
   m_TagString: Untagged
@@ -3412,20 +3389,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8800597842548613469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674726860680503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674726860680505}
 --- !u!1 &2521674727036196414
 GameObject:
   m_ObjectHideFlags: 0
@@ -3730,7 +3693,6 @@ GameObject:
   - component: {fileID: 2521674727297671679}
   - component: {fileID: 2521674727297671678}
   - component: {fileID: 2521674727297671677}
-  - component: {fileID: 1284238058694189298}
   m_Layer: 5
   m_Name: AUSTRALIA
   m_TagString: Untagged
@@ -3841,20 +3803,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1284238058694189298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674727297671675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674727297671677}
 --- !u!1 &2521674727304662443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,11 +4234,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d372ed4b1b7a0764893119807702bb98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
-  from: {x: 0, y: 0, z: 0}
+  panel: {fileID: 2521674727476551678}
+  from: {x: -300, y: 0, z: 0}
   to: {x: 0, y: 0, z: 0}
-  time: 0
-  canvasGroup: {fileID: 0}
+  time: 0.2
+  canvasGroup: {fileID: 2521674727476551654}
+  buttonBackToMenuPanel: {fileID: 2521674726238013508}
 --- !u!1 &2521674727477786564
 GameObject:
   m_ObjectHideFlags: 0
@@ -4303,7 +4252,6 @@ GameObject:
   - component: {fileID: 2521674727477786568}
   - component: {fileID: 2521674727477786567}
   - component: {fileID: 2521674727477786566}
-  - component: {fileID: 7778008654648360971}
   m_Layer: 5
   m_Name: EUROPE
   m_TagString: Untagged
@@ -4426,20 +4374,6 @@ MonoBehaviour:
           m_StringArgument: eu
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7778008654648360971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674727477786564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: eu
-  serverButton: {fileID: 0}
 --- !u!1 &2521674727505075453
 GameObject:
   m_ObjectHideFlags: 0
@@ -4687,7 +4621,6 @@ GameObject:
   - component: {fileID: 2521674727602273153}
   - component: {fileID: 2521674727602273152}
   - component: {fileID: 2521674727602273183}
-  - component: {fileID: 7808212514919907413}
   m_Layer: 5
   m_Name: SOUTH_AMERICA
   m_TagString: Untagged
@@ -4798,20 +4731,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7808212514919907413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674727602273181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674727602273183}
 --- !u!1 &2521674727614127836
 GameObject:
   m_ObjectHideFlags: 0
@@ -4910,7 +4829,6 @@ GameObject:
   - component: {fileID: 2521674727652061870}
   - component: {fileID: 2521674727652061869}
   - component: {fileID: 2521674727652061868}
-  - component: {fileID: 8197884092514191344}
   m_Layer: 5
   m_Name: EAST_USA
   m_TagString: Untagged
@@ -5021,20 +4939,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8197884092514191344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674727652061866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674727652061868}
 --- !u!1 &2521674727658824213
 GameObject:
   m_ObjectHideFlags: 0
@@ -6139,7 +6043,6 @@ GameObject:
   - component: {fileID: 2521674727880398489}
   - component: {fileID: 2521674727880398488}
   - component: {fileID: 2521674727880398487}
-  - component: {fileID: 9008217866794542000}
   m_Layer: 5
   m_Name: LOCAL
   m_TagString: Untagged
@@ -6250,20 +6153,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9008217866794542000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2521674727880398485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 869be0daa94bd9a489c73d0ee2b38377, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  serverID: 
-  serverButton: {fileID: 2521674727880398487}
 --- !u!1 &2521674727902161989
 GameObject:
   m_ObjectHideFlags: 0
