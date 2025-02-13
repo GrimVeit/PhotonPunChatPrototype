@@ -16,11 +16,15 @@ public class CharacterPresenter
     public void Initialize()
     {
         ActivateEvents();
+
+        characterView.Initialize();
     }
 
     public void Dispose()
     {
         DeactivateEvents();
+
+        characterView.Dispose();
     }
 
     private void ActivateEvents()

@@ -9,14 +9,14 @@ public class CharacterSpawnerView : View
 
     public void Initialize()
     {
-        buttonSpawn.onClick.AddListener(HandlerClickToSpawnButton);
-        buttonDestroy.onClick.AddListener(HandlerClickToDestroyButton);
+        //buttonSpawn.onClick.AddListener(HandlerClickToSpawnButton);
+        //buttonDestroy.onClick.AddListener(HandlerClickToDestroyButton);
     }
 
     public void Dispose()
     {
-        buttonSpawn.onClick.RemoveListener(HandlerClickToSpawnButton);
-        buttonDestroy.onClick.RemoveListener(HandlerClickToDestroyButton);
+        //buttonSpawn.onClick.RemoveListener(HandlerClickToSpawnButton);
+        //buttonDestroy.onClick.RemoveListener(HandlerClickToDestroyButton);
     }
 
     #region Input

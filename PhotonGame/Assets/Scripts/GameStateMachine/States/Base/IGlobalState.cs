@@ -5,6 +5,5 @@ using UnityEngine;
 public interface IGlobalState
 {
     void EnterState();
-    void UpdateState();
     void ExitState();
 }

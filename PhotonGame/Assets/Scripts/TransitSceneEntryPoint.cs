@@ -29,10 +29,10 @@ public class TransitSceneEntryPoint : MonoBehaviour
         viewContainer = sceneRootView.GetComponent<ViewContainer>();
         viewContainer.Initialize();
 
-        photonNetworkPresenter = new PhotonNetworkPresenter(dIContainer.Resolve<PhotonNetworkModel>(), viewContainer.GetView<PhotonNetworkView>());
+        photonNetworkPresenter = new PhotonNetworkPresenter(dIContainer.Resolve<PhotonNetworkModel>());
         photonNetworkPresenter.Initialize();
 
-        photonChatPresenter = new PhotonChatPresenter(dIContainer.Resolve<PhotonChatModel>(), viewContainer.GetView<PhotonChatView>());
+        photonChatPresenter = new PhotonChatPresenter(dIContainer.Resolve<PhotonChatModel>());
         photonChatPresenter.Initialize();
 
         //ActivateEvents();

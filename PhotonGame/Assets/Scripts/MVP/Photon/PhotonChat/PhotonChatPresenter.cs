@@ -3,34 +3,18 @@ using System;
 public class PhotonChatPresenter
 {
     private PhotonChatModel photonChatModel;
-    private PhotonChatView photonChatView;
 
-    public PhotonChatPresenter(PhotonChatModel photonChatModel, PhotonChatView photonChatView)
+    public PhotonChatPresenter(PhotonChatModel photonChatModel)
     {
         this.photonChatModel = photonChatModel;
-        this.photonChatView = photonChatView;
     }
 
     public void Initialize()
     {
-        ActivateEvents();
 
-        photonChatView.Initialize();
     }
 
     public void Dispose()
-    {
-        DeactivateEvents();
-
-        photonChatView.Dispose();
-    }
-
-    private void ActivateEvents()
-    {
-        
-    }
-
-    private void DeactivateEvents()
     {
 
     }

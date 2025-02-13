@@ -17,21 +17,21 @@ public class ChatView : MonoBehaviour
 
     public void Initialize()
     {
-        submitMessageButton.onClick.AddListener(HandlerClickToSubmitMessageButton);
+        //submitMessageButton.onClick.AddListener(HandlerClickToSubmitMessageButton);
     }
 
     public void Dispose()
     {
-        submitMessageButton.onClick.RemoveListener(HandlerClickToSubmitMessageButton);
+        //submitMessageButton.onClick.RemoveListener(HandlerClickToSubmitMessageButton);
     }
 
     public void GetMessage(object[] messages)
     {
-        for (int i = 0; i < messages.Length; i++)
-        {
-            PrefabMessage prefabObj = Instantiate(prefabMessage, content);
-            prefabObj.SetData(messages[i].ToString());
-        }
+        //for (int i = 0; i < messages.Length; i++)
+        //{
+        //    PrefabMessage prefabObj = Instantiate(prefabMessage, content);
+        //    prefabObj.SetData(messages[i].ToString());
+        //}
     }
 
     #region Input

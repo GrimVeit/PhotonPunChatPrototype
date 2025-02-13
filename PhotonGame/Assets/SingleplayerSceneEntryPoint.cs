@@ -16,48 +16,80 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
     private ViewContainer viewContainer;
 
     private PhotonNetworkPresenter photonNetworkPresenter;
+    private ChooseNetworkServerPresenter chooseNetworkServerPresenter;
+    private ChooseNetworkChannelPresenter chooseNetworkChannelPresenter;
+
     private PhotonChatPresenter photonChatPresenter;
     private CharacterSpawnerPresenter characterSpawnerPresenter;
     private CharacterPresenter characterPresenter;
+
+    private GameStateMachine gameStateMachine;
 
     public void Run(DIContainer dIContainer)
     {
         this.dIContainer = dIContainer;
         mainRootView = this.dIContainer.Resolve<UIRootView>();
         sceneRootView = Instantiate(sceneRootViewPrefab);
+        sceneRootView.Initialize();
         mainRootView.AttachSceneUI(sceneRootView.gameObject, Camera.main);
+
+        viewContainer = sceneRootView.GetComponent<ViewContainer>();
+        viewContainer.Initialize();
+
+        this.dIContainer.RegisterInstance(sceneRootView);
 
         Initialize();
     }
 
     private void Initialize()
     {
-        ActivateEvents();
-
         photonNetworkPresenter = new PhotonNetworkPresenter
-            (dIContainer.Resolve<PhotonNetworkModel>(), 
-            viewContainer.GetView<PhotonNetworkView>());
+            (dIContainer.Resolve<PhotonNetworkModel>());
         photonNetworkPresenter.Initialize();
 
         photonChatPresenter = new PhotonChatPresenter
-            (dIContainer.Resolve<PhotonChatModel>(),
-            viewContainer.GetView<PhotonChatView>());
+            (dIContainer.Resolve<PhotonChatModel>());
         photonChatPresenter.Initialize();
+
+        chooseNetworkServerPresenter = new ChooseNetworkServerPresenter
+            (new ChooseNetworkServerModel(), 
+            viewContainer.GetView<ChooseNetworkServerView>());
+        chooseNetworkServerPresenter.Initialize();
+
+        chooseNetworkChannelPresenter = new ChooseNetworkChannelPresenter
+            (new ChooseNetworkChannelModel(), 
+            viewContainer.GetView<ChooseNetworkChannelView>());
+        chooseNetworkChannelPresenter.Initialize();
 
         characterSpawnerPresenter = new CharacterSpawnerPresenter
             (new CharacterSpawnerModel(characters, transforms), 
             viewContainer.GetView<CharacterSpawnerView>());
-        characterPresenter.Initialize();
+        characterSpawnerPresenter.Initialize();
 
         characterPresenter = new CharacterPresenter
             (new CharacterModel(), 
             viewContainer.GetView<CharacterView>());
         characterPresenter.Initialize();
+
+        dIContainer.RegisterInstance(photonNetworkPresenter);
+        dIContainer.RegisterInstance(photonChatPresenter);
+        dIContainer.RegisterInstance(chooseNetworkServerPresenter);
+        dIContainer.RegisterInstance(chooseNetworkChannelPresenter);
+        dIContainer.RegisterInstance(characterSpawnerPresenter);
+        dIContainer.RegisterInstance(characterPresenter);
+
+        ActivateEvents();
+
+        gameStateMachine = new GameStateMachine(dIContainer);
+        gameStateMachine.Initialize();
     }
 
     private void ActivateEvents()
     {
         ActivateTransitEvents();
+
+        chooseNetworkServerPresenter.OnChooseServer += photonNetworkPresenter.ChangeServer;
+        chooseNetworkChannelPresenter.OnChooseChannel += photonNetworkPresenter.JoinOrCreateRoom;
 
         sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
         sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
@@ -66,6 +98,9 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
     private void DeactivateEvents()
     {
         DeactivateTransitEvents();
+
+        chooseNetworkServerPresenter.OnChooseServer -= photonNetworkPresenter.ChangeServer;
+        chooseNetworkChannelPresenter.OnChooseChannel -= photonNetworkPresenter.JoinOrCreateRoom;
 
         sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
         sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
@@ -123,7 +158,7 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
     private void LoadTransitScene()
     {
-        OnLoadTransitScene?.Invoke();
+        //OnLoadTransitScene?.Invoke();
     }
 
     #endregion

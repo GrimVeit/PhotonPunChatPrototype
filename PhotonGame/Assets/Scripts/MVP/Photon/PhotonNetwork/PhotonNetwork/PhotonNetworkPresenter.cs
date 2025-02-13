@@ -8,38 +8,20 @@ using UnityEngine;
 public class PhotonNetworkPresenter
 {
     private PhotonNetworkModel photonNetworkModel;
-    private PhotonNetworkView photonNetworkView;
 
-    public PhotonNetworkPresenter(PhotonNetworkModel photonNetworkModel, PhotonNetworkView photonNetworkView)
+    public PhotonNetworkPresenter(PhotonNetworkModel photonNetworkModel)
     {
         this.photonNetworkModel = photonNetworkModel;
-        this.photonNetworkView = photonNetworkView;
     }
 
     public void Initialize()
     {
-        ActivateEvents();
 
-        photonNetworkView.Initialize();
     }
 
     public void Dispose()
     {
-        DeactivateEvents();
 
-        photonNetworkView.Dispose();
-    }
-
-    private void ActivateEvents()
-    {
-        photonNetworkView.OnSelectServer += photonNetworkModel.SelectRegion;
-        photonNetworkView.OnChooseChannel += photonNetworkModel.JoinOrCreateRoom;
-    }
-
-    private void DeactivateEvents()
-    {
-        photonNetworkView.OnSelectServer -= photonNetworkModel.SelectRegion;
-        photonNetworkView.OnChooseChannel -= photonNetworkModel.JoinOrCreateRoom;
     }
 
     #region Methods
@@ -83,6 +65,11 @@ public class PhotonNetworkPresenter
         photonNetworkModel.JoinOrCreateRoom(name, maxCountPlayer);
     }
 
+    public void JoinOrCreateRoom(string name)
+    {
+        photonNetworkModel.JoinOrCreateRoom(name, 5);
+    }
+
     public void JoinRandomRoom()
     {
         photonNetworkModel.JoinRandomRoom();
@@ -101,6 +88,11 @@ public class PhotonNetworkPresenter
     public void JoinRoom(string name)
     {
         photonNetworkModel.JoinRoom(name);
+    }
+
+    public void ChangeServer(ServerRegion region)
+    {
+        photonNetworkModel.SelectRegion(region);
     }
 
     #endregion

@@ -96,30 +96,26 @@ public class GameEntryPoint : MonoBehaviour
 
 #endif
 
-        coroutines.StartCoroutine(LoadAndStartInitializeScene());
+        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
     private IEnumerator LoadAndStartInitializeScene()
     {
-        rootView.SetLoadScreen(0);
-
-        yield return rootView.ShowLoadingScreen();
-
         yield return new WaitForSeconds(0.3f);
+        yield return LoadScene(Scenes.Boot);
         yield return LoadScene(Scenes.Initialize);
 
         currentSceneContainer = new DIContainer(mainGameContainer);
         var sceneEntryPoint = FindObjectOfType<InitializeSceneEntryPoint>();
         sceneEntryPoint.Run(currentSceneContainer);
+        sceneEntryPoint.OnLoadTransitScene += ()=> coroutines.StartCoroutine(LoadAndStartTransitScene());
 
         yield return new WaitForSeconds(0.2f);
-
-        yield return rootView.HideLoadingScreen();
     }
 
     private IEnumerator LoadAndStartTransitScene()
     {
-        rootView.SetLoadScreen(0);
+        rootView.SetLoadScreen(1);
 
         yield return rootView.ShowLoadingScreen();
 
@@ -137,13 +133,11 @@ public class GameEntryPoint : MonoBehaviour
         sceneEntryPoint.Run(currentSceneContainer);
 
         yield return rootView.HideLoadingScreen();
-
-        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
     private IEnumerator LoadAndStartSingleplayerScene()
     {
-        rootView.SetLoadScreen(0);
+        rootView.SetLoadScreen(1);
 
         yield return rootView.ShowLoadingScreen();
 
@@ -160,13 +154,11 @@ public class GameEntryPoint : MonoBehaviour
         sceneEntryPoint.Run(currentSceneContainer);
 
         yield return rootView.HideLoadingScreen();
-
-        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
     private IEnumerator LoadAndStartMultiplayerScene()
     {
-        rootView.SetLoadScreen(0);
+        rootView.SetLoadScreen(1);
 
         yield return rootView.ShowLoadingScreen();
 
@@ -183,8 +175,6 @@ public class GameEntryPoint : MonoBehaviour
         sceneEntryPoint.Run(currentSceneContainer);
 
         yield return rootView.HideLoadingScreen();
-
-        coroutines.StartCoroutine(LoadAndStartTransitScene());
     }
 
 
