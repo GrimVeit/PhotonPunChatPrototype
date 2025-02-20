@@ -9,12 +9,16 @@ public class CharacterView : View
 
     public void Initialize()
     {
-        joystick.OnMove += HandleJoystickMove;
+        joystick.OnStartMove += HandleStartMoveJoystick;
+        joystick.OnMove += HandleMoveJoystick;
+        joystick.OnEndMove += HandleEndMoveJoystick;
     }
 
     public void Dispose()
     {
-        joystick.OnMove -= HandleJoystickMove;
+        joystick.OnStartMove -= HandleStartMoveJoystick;
+        joystick.OnMove -= HandleMoveJoystick;
+        joystick.OnEndMove -= HandleEndMoveJoystick;
     }
 
     public void SetCharacter(Character character)
@@ -22,7 +26,7 @@ public class CharacterView : View
         this.character = character;
     }
 
-    public void Move(Vector3 vector)
+    public void Move(Vector2 vector)
     {
         if(character == null) return;
 
@@ -31,11 +35,23 @@ public class CharacterView : View
 
     #region Input
 
-    public event Action<Vector3> OnMove;
+    public event Action OnStartMove;
+    public event Action<Vector2> OnMove;
+    public event Action OnEndMove;
 
-    private void HandleJoystickMove(Vector3 vector)
+    private void HandleStartMoveJoystick()
+    {
+        OnStartMove?.Invoke();
+    }
+
+    private void HandleMoveJoystick(Vector2 vector)
     {
         OnMove?.Invoke(vector);
+    }
+
+    private void HandleEndMoveJoystick()
+    {
+        OnEndMove?.Invoke();
     }
 
     #endregion

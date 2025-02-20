@@ -8,9 +8,12 @@ public class CharacterMove : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.zero;
 
-    public void Move(Vector3 vector)
+    public void Move(Vector2 vector)
     {
-        moveDirection = transform.TransformDirection(vector) * speedMove;
+        Debug.Log(vector);
+
+        moveDirection = characterController.transform.right * vector.x + characterController.transform.forward * vector.y;
+        moveDirection = transform.TransformDirection(moveDirection) * speedMove;
         characterController.Move(moveDirection);
     }
     public void Jump()

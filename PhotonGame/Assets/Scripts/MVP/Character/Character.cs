@@ -6,7 +6,7 @@ public class Character : MonoBehaviour
     [SerializeField] private CharacterMove characterMove;
     [SerializeField] private CharacterAnimator characterAnimator;
 
-    public void Move(Vector3 vector)
+    public void Move(Vector2 vector)
     {
         characterMove.Move(vector);
     }

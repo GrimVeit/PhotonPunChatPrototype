@@ -29,14 +29,18 @@ public class CharacterPresenter
 
     private void ActivateEvents()
     {
-        characterView.OnMove += characterModel.Move;
+        characterView.OnStartMove += characterModel.ActivateMove;
+        characterView.OnMove += characterModel.SetDirection;
+        characterView.OnEndMove += characterModel.DeactivateMove;
 
         characterModel.OnMove += characterView.Move;
     }
 
     private void DeactivateEvents()
     {
-        characterView.OnMove -= characterModel.Move;
+        characterView.OnStartMove -= characterModel.ActivateMove;
+        characterView.OnMove -= characterModel.SetDirection;
+        characterView.OnEndMove -= characterModel.DeactivateMove;
 
         characterModel.OnMove -= characterView.Move;
     }

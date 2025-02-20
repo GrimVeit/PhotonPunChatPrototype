@@ -6,7 +6,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 {
     //
 
-    public event Action<Vector3> OnMove;
+    public event Action OnStartMove;
+    public event Action<Vector2> OnMove;
+    public event Action OnEndMove;
 
     //
 
@@ -65,6 +67,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        OnStartMove?.Invoke();
+
         OnDrag(eventData);
     }
 
@@ -141,6 +145,8 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     {
         input = Vector2.zero;
         handle.anchoredPosition = Vector2.zero;
+
+        OnEndMove?.Invoke();
     }
 
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)

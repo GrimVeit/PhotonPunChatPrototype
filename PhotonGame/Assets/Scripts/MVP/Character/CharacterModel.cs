@@ -1,11 +1,48 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class CharacterModel
 {
-    public event Action<Vector3> OnMove;
-    public void Move(Vector3 vector)
+    public event Action<Vector2> OnMove;
+
+    private IEnumerator coroutineMove;
+
+    private Vector3 moveDirection;
+
+    private bool isActiveMove = false;
+
+
+    public void SetDirection(Vector2 vector)
     {
-        OnMove?.Invoke(vector);
+        moveDirection = vector;
+    }
+
+    public void ActivateMove()
+    {
+        isActiveMove = true;
+
+        if(coroutineMove != null)
+            Coroutines.Stop(coroutineMove);
+
+        coroutineMove = MoveCoroutine();
+        Coroutines.Start(coroutineMove);
+    }
+
+    public void DeactivateMove()
+    {
+        isActiveMove = false;
+
+        if (coroutineMove != null)
+            Coroutines.Stop(coroutineMove);
+    }
+
+    private IEnumerator MoveCoroutine()
+    {
+        while (isActiveMove)
+        {
+            OnMove?.Invoke(moveDirection);
+            yield return null;
+        }
     }
 }
