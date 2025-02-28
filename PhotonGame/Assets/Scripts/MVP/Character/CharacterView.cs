@@ -33,6 +33,11 @@ public class CharacterView : View
         character.Move(vector);
     }
 
+    public void Rotate(Vector3 vector)
+    {
+        if (character == null) return;
+    }
+
     #region Input
 
     public event Action OnStartMove;

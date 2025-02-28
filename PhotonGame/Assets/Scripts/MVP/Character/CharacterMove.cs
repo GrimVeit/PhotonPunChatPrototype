@@ -12,8 +12,12 @@ public class CharacterMove : MonoBehaviour
     {
         Debug.Log(vector);
 
-        moveDirection = characterController.transform.right * vector.x + characterController.transform.forward * vector.y;
-        moveDirection = transform.TransformDirection(moveDirection) * speedMove;
+        Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+        Vector3 right = Vector3.ProjectOnPlane(transform.right, Vector3.up);
+
+        moveDirection = right * vector.x + forward * vector.y;
+        moveDirection *= speedMove;
+
         characterController.Move(moveDirection);
     }
     public void Jump()
@@ -22,5 +26,11 @@ public class CharacterMove : MonoBehaviour
         {
             moveDirection.y = speedJump;
         }
+    }
+
+    private void Update()
+    {
+        moveDirection.y -= 2 * Time.deltaTime;
+        characterController.Move(Time.deltaTime * moveDirection);
     }
 }

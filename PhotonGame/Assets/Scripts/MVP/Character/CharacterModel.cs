@@ -35,6 +35,8 @@ public class CharacterModel
 
         if (coroutineMove != null)
             Coroutines.Stop(coroutineMove);
+
+        OnMove?.Invoke(Vector3.zero);
     }
 
     private IEnumerator MoveCoroutine()
