@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterView : View
 {
     [SerializeField] private Joystick joystick;
+    [SerializeField] private TouchField touchField;
+    [SerializeField] private Button buttonJump;
 
     private Character character;
 
@@ -12,6 +15,11 @@ public class CharacterView : View
         joystick.OnStartMove += HandleStartMoveJoystick;
         joystick.OnMove += HandleMoveJoystick;
         joystick.OnEndMove += HandleEndMoveJoystick;
+
+        touchField.OnStartTouch += HandleStartTouch;
+        touchField.OnEndTouch += HandleEndTouch;
+
+        buttonJump.onClick.AddListener(Jump);
     }
 
     public void Dispose()
@@ -19,6 +27,11 @@ public class CharacterView : View
         joystick.OnStartMove -= HandleStartMoveJoystick;
         joystick.OnMove -= HandleMoveJoystick;
         joystick.OnEndMove -= HandleEndMoveJoystick;
+
+        touchField.OnStartTouch -= HandleStartTouch;
+        touchField.OnEndTouch -= HandleEndTouch;
+
+        buttonJump.onClick.RemoveListener(Jump);
     }
 
     public void SetCharacter(Character character)
@@ -33,12 +46,23 @@ public class CharacterView : View
         character.Move(vector);
     }
 
-    public void Rotate(Vector3 vector)
+    public void Jump()
+    {
+        if(character == null) return;
+
+        character.Jump();
+    }
+
+    public void Rotate(Vector2 vector)
     {
         if (character == null) return;
+
+        character.Rotate(vector);
     }
 
     #region Input
+
+    #region Move
 
     public event Action OnStartMove;
     public event Action<Vector2> OnMove;
@@ -58,6 +82,25 @@ public class CharacterView : View
     {
         OnEndMove?.Invoke();
     }
+
+    #endregion
+
+    #region Rotate
+
+    public event Action<int, Vector3> OnStartTouch;
+    public event Action OnEndTouch;
+
+    private void HandleStartTouch(int pointerId, Vector3 vectorOld)
+    {
+        OnStartTouch?.Invoke(pointerId, vectorOld);
+    }
+
+    private void HandleEndTouch()
+    {
+        OnEndTouch?.Invoke();
+    }
+
+    #endregion
 
     #endregion
 }

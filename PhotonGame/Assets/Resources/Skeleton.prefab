@@ -752,8 +752,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 2508290683310896985}
+  transformCamera: {fileID: 2230841086878787214}
+  transformPlayer: {fileID: 2991777439335230950}
   speedJump: 2
   speedMove: 0.1
+  SensivityX: 4
+  SensivityY: 4
 --- !u!114 &4453275898207927573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,6 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b20e2b1a63d4804faa9097b51718a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 8294008450186427084}
 --- !u!114 &7972783178508563716
 MonoBehaviour:
   m_ObjectHideFlags: 0

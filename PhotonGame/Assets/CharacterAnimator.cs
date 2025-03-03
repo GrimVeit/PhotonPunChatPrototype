@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    private const string blend = "Blend";
+
+    public void PlayAnimation(float blendValue)
     {
-        
+        animator.SetFloat(blend, blendValue);
     }
 }

@@ -33,7 +33,11 @@ public class CharacterPresenter
         characterView.OnMove += characterModel.SetDirection;
         characterView.OnEndMove += characterModel.DeactivateMove;
 
+        characterView.OnStartTouch += characterModel.ActivateRotate;
+        characterView.OnEndTouch += characterModel.DeactivateRotate;
+
         characterModel.OnMove += characterView.Move;
+        characterModel.OnRotate += characterView.Rotate;
     }
 
     private void DeactivateEvents()
@@ -42,7 +46,11 @@ public class CharacterPresenter
         characterView.OnMove -= characterModel.SetDirection;
         characterView.OnEndMove -= characterModel.DeactivateMove;
 
+        characterView.OnStartTouch -= characterModel.ActivateRotate;
+        characterView.OnEndTouch -= characterModel.DeactivateRotate;
+
         characterModel.OnMove -= characterView.Move;
+        characterModel.OnRotate -= characterView.Rotate;
     }
 
     #region Input
