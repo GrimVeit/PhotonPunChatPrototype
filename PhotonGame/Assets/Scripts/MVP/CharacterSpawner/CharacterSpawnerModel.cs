@@ -30,8 +30,7 @@ public class CharacterSpawnerModel
     public void SpawnLocalCharacter()
     {
         int index = GetRandomCharacterIndex();
-        Character character = UnityEngine.Object.Instantiate(characters[index], GetRandomTransform().position, characters[index].transform.rotation);
-        currentCharacter = character;
+        currentCharacter = UnityEngine.Object.Instantiate(characters[index], GetRandomTransform().position, characters[index].transform.rotation);
         OnSpawnCharacter?.Invoke(currentCharacter);
     }
 
@@ -39,7 +38,7 @@ public class CharacterSpawnerModel
     {
         if (currentCharacter == null) return;
 
-        UnityEngine.Object.Destroy(currentCharacter);
+        UnityEngine.Object.Destroy(currentCharacter.gameObject);
         OnDestroyCharacter?.Invoke();
     }
 

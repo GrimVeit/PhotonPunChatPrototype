@@ -24,7 +24,9 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
     private PhotonChatPresenter photonChatPresenter;
     private CharacterSpawnerPresenter characterSpawnerPresenter;
-    private CharacterPresenter characterPresenter;
+
+    private CharacterMoveRotatePresenter characterMoveRotatePresenter;
+    private CharacterCameraPresenter characterCameraPresenter;
 
     private GameStateMachine gameStateMachine;
 
@@ -79,10 +81,11 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
             viewContainer.GetView<CharacterSpawnerView>());
         characterSpawnerPresenter.Initialize();
 
-        characterPresenter = new CharacterPresenter
-            (new CharacterModel(), 
-            viewContainer.GetView<CharacterView>());
-        characterPresenter.Initialize();
+        characterMoveRotatePresenter = new CharacterMoveRotatePresenter(new CharacterMoveRotateModel());
+        characterMoveRotatePresenter.Initialize();
+
+        characterCameraPresenter = new CharacterCameraPresenter(new CharacterCameraModel());
+        characterCameraPresenter.Initialize();
 
         dIContainer.RegisterInstance(joystickInputSystemPresenter);
         dIContainer.RegisterInstance(touchRotationInputSystemPresenter);
@@ -91,7 +94,8 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
         dIContainer.RegisterInstance(chooseNetworkServerPresenter);
         dIContainer.RegisterInstance(chooseNetworkChannelPresenter);
         dIContainer.RegisterInstance(characterSpawnerPresenter);
-        dIContainer.RegisterInstance(characterPresenter);
+        dIContainer.RegisterInstance(characterMoveRotatePresenter);
+        dIContainer.RegisterInstance(characterCameraPresenter);
 
         ActivateEvents();
 
@@ -105,9 +109,6 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
         chooseNetworkServerPresenter.OnChooseServer += photonNetworkPresenter.ChangeServer;
         chooseNetworkChannelPresenter.OnChooseChannel += photonNetworkPresenter.JoinOrCreateRoom;
-
-        sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
-        sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
     }
 
     private void DeactivateEvents()
@@ -116,14 +117,11 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
         chooseNetworkServerPresenter.OnChooseServer -= photonNetworkPresenter.ChangeServer;
         chooseNetworkChannelPresenter.OnChooseChannel -= photonNetworkPresenter.JoinOrCreateRoom;
-
-        sceneRootView.OnClickToOpenGamePanel += characterSpawnerPresenter.SpawnLocalCharacter;
-        sceneRootView.OnClickToOpenMenuPanelFromGamePanel += characterSpawnerPresenter.DestroyLocalCharacter;
     }
 
     private void ActivateTransitEvents()
     {
-        photonNetworkPresenter.OnSelectRegion += LoadTransitScene;
+        //photonNetworkPresenter.OnSelectRegion += LoadTransitScene;
 
         sceneRootView.OnClickToOpenGamePanel += sceneRootView.ActivateGamePanel;
         sceneRootView.OnClickToOpenSettingsPanel += sceneRootView.ActivateSettingsPanel;
@@ -136,7 +134,7 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
     private void DeactivateTransitEvents()
     {
-        photonNetworkPresenter.OnSelectRegion -= LoadTransitScene;
+        //photonNetworkPresenter.OnSelectRegion -= LoadTransitScene;
 
         sceneRootView.OnClickToOpenGamePanel -= sceneRootView.ActivateGamePanel;
         sceneRootView.OnClickToOpenSettingsPanel -= sceneRootView.ActivateSettingsPanel;
@@ -158,23 +156,23 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
         DeactivateEvents();
 
         characterSpawnerPresenter.Dispose();
-        characterPresenter.Dispose();
+        characterMoveRotatePresenter.Dispose();
     }
 
-    #region Input
+    //#region Input
 
-    public event Action OnLoadSingleplayerScene;
-    public event Action OnLoadTransitScene;
+    //public event Action OnLoadSingleplayerScene;
+    //public event Action OnLoadTransitScene;
 
-    private void LoadSingleplayerScene()
-    {
-        OnLoadSingleplayerScene?.Invoke();
-    }
+    //private void LoadSingleplayerScene()
+    //{
+    //    OnLoadSingleplayerScene?.Invoke();
+    //}
 
-    private void LoadTransitScene()
-    {
-        //OnLoadTransitScene?.Invoke();
-    }
+    //private void LoadTransitScene()
+    //{
+    //    OnLoadTransitScene?.Invoke();
+    //}
 
-    #endregion
+    //#endregion
 }

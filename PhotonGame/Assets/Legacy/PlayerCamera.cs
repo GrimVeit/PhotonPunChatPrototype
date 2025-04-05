@@ -15,6 +15,13 @@ public class PlayerCamera : MonoBehaviourPunCallbacks
 
     public void ActivateCamera(bool activate)
     {
-        cameraPlayer.gameObject.SetActive(activate);
+        if (!photonView.IsMine)
+        {
+            cameraPlayer.gameObject.SetActive(activate);
+        }
+        else
+        {
+            cameraPlayer.gameObject.SetActive(activate);
+        }
     }
 }

@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class CharacterCamera : MonoBehaviour
+public class CharacterCamera : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Camera cameraPlayer;
 
-    //private void Awake()
-    //{
-    //    if (!photonView.IsMine)
-    //    {
-    //        ActivateCamera(false);
-    //    }
-    //}
+    private void Awake()
+    {
+        if (!photonView.IsMine)
+        {
+            ActivateCamera(false);
+        }
+    }
 
     public void ActivateCamera(bool activate)
     {

@@ -5,38 +5,38 @@ using UnityEngine;
 
 public class GameMenuState : IGlobalState
 {
-    private DIContainer container;
+    private DIContainer _container;
 
-    private IGlobalStateMachineControl control;
+    private IGlobalStateMachineControl _globalStateMachineProvider;
 
-    private SingleplayerSceneRootView sceneRoot;
+    private SingleplayerSceneRootView _sceneRoot;
 
     public GameMenuState(DIContainer container, IGlobalStateMachineControl control)
     {
-        this.container = container;
-        this.control = control;
+        _container = container;
+        _globalStateMachineProvider = control;
 
-        sceneRoot = this.container.Resolve<SingleplayerSceneRootView>();
+        _sceneRoot = _container.Resolve<SingleplayerSceneRootView>();
     }
 
     public void EnterState()
     {
         Debug.Log("ACTIVATE STATE --- GAME MENU STATE");
 
-        sceneRoot.OnClickToOpenGamePanel += ChangeStateToGame;
+        _sceneRoot.OnClickToOpenGamePanel += ChangeStateToGame;
 
-        sceneRoot.ActivateMenuPanel();
+        _sceneRoot.ActivateMenuPanel();
     }
 
     public void ExitState()
     {
         Debug.Log("DEACTIVATE STATE --- GAME MENU STATE");
 
-        sceneRoot.OnClickToOpenGamePanel -= ChangeStateToGame;
+        _sceneRoot.OnClickToOpenGamePanel -= ChangeStateToGame;
     }
 
     private void ChangeStateToGame()
     {
-        control.SetState(control.GetState<GameState>());
+        _globalStateMachineProvider.SetState(_globalStateMachineProvider.GetState<GameState>());
     }
 }

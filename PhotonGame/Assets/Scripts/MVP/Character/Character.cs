@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ICharacterMoveRotateProvider, ICharacterCameraProvider
 {
     [SerializeField] private CharacterCamera characterCamera;
     [SerializeField] private CharacterMove characterMove;
@@ -35,7 +35,7 @@ public class Character : MonoBehaviour
 
     public void DeactivateCharacterCamera()
     {
-        characterCamera.ActivateCamera(true);
+        characterCamera.ActivateCamera(false);
     }
 
     private float MaxValue(float a, float b)
@@ -45,4 +45,16 @@ public class Character : MonoBehaviour
             maxValue = Mathf.Abs(b);
         return maxValue;
     }
+}
+
+public interface ICharacterCameraProvider
+{
+    void ActivateCharacterCamera();
+    void DeactivateCharacterCamera();
+}
+
+public interface ICharacterMoveRotateProvider
+{
+    void Move(Vector2 vector);
+    void Rotate(Vector2 vector);
 }

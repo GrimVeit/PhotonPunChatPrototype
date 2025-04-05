@@ -5,50 +5,65 @@ using UnityEngine;
 
 public class GameState : IGlobalState
 {
-    private DIContainer container;
+    private readonly DIContainer _container;
 
-    private IGlobalStateMachineControl control;
+    private readonly IGlobalStateMachineControl _globalStateMachineProvider;
 
-    private SingleplayerSceneRootView sceneRoot;
-    private CharacterSpawnerPresenter characterSpawnerPresenter;
-    private CharacterPresenter characterPresenter;
-    private PhotonChatPresenter photonChatPresenter;
+    private readonly SingleplayerSceneRootView _sceneRoot;
+    private readonly PhotonChatPresenter _photonChatPresenter;
+    private readonly CharacterSpawnerPresenter _characterSpawnerPresenter;
+    private readonly CharacterMoveRotatePresenter _characterMoveRotatePresenter;
+    private readonly CharacterCameraPresenter _characterCameraPresenter;
+    private readonly JoystickInputSystemPresenter _joystickInputSystemPresenter;
+    private readonly TouchRotationInputSystemPresenter _touchRotationInputSystemPresenter;
 
     public GameState(DIContainer container, IGlobalStateMachineControl control)
     {
-        this.container = container;
-        this.control = control;
+        _container = container;
+        _globalStateMachineProvider = control;
 
-        sceneRoot = this.container.Resolve<SingleplayerSceneRootView>();
-        characterSpawnerPresenter = this.container.Resolve<CharacterSpawnerPresenter>();
-        characterPresenter = this.container.Resolve<CharacterPresenter>();
-        photonChatPresenter = this.container.Resolve<PhotonChatPresenter>();
+        _sceneRoot = _container.Resolve<SingleplayerSceneRootView>();
+        _characterSpawnerPresenter = _container.Resolve<CharacterSpawnerPresenter>();
+        _characterMoveRotatePresenter = _container.Resolve<CharacterMoveRotatePresenter>();
+        _characterCameraPresenter = _container.Resolve<CharacterCameraPresenter>();
+        _joystickInputSystemPresenter = _container.Resolve<JoystickInputSystemPresenter>();
+        _touchRotationInputSystemPresenter = _container.Resolve<TouchRotationInputSystemPresenter>();
+        _photonChatPresenter = _container.Resolve<PhotonChatPresenter>();
     }
 
     public void EnterState()
     {
         Debug.Log("ACTIVATE STATE --- GAME MENU STATE");
 
-        sceneRoot.OnClickToOpenMenuPanelFromGamePanel += ChangeStateToMenu;
-        characterSpawnerPresenter.OnSpawnCharacter += characterPresenter.SetCharacter;
+        _sceneRoot.OnClickToOpenMenuPanelFromGamePanel += ChangeStateToMenu;
+        _characterSpawnerPresenter.OnSpawnCharacter += _characterMoveRotatePresenter.SetCharacter;
+        _characterSpawnerPresenter.OnSpawnCharacter += _characterCameraPresenter.SetCharacter;
+        _joystickInputSystemPresenter.OnMove += _characterMoveRotatePresenter.Move;
+        _touchRotationInputSystemPresenter.OnRotate += _characterMoveRotatePresenter.Rotate;
 
-        characterSpawnerPresenter.SpawnLocalCharacter();
+        _characterSpawnerPresenter.SpawnLocalCharacter();
+        _characterCameraPresenter.ActivateCamera();
 
-        sceneRoot.ActivateGamePanel();
+        _sceneRoot.ActivateGamePanel();
     }
 
     public void ExitState()
     {
         Debug.Log("DEACTIVATE STATE --- GAME MENU STATE");
 
-        sceneRoot.OnClickToOpenMenuPanelFromGamePanel -= ChangeStateToMenu;
-        characterSpawnerPresenter.OnSpawnCharacter -= characterPresenter.SetCharacter;
 
-        characterSpawnerPresenter.DestroyLocalCharacter();
+        _sceneRoot.OnClickToOpenMenuPanelFromGamePanel -= ChangeStateToMenu;
+        _characterSpawnerPresenter.OnSpawnCharacter -= _characterMoveRotatePresenter.SetCharacter;
+        _characterSpawnerPresenter.OnSpawnCharacter -= _characterCameraPresenter.SetCharacter;
+        _joystickInputSystemPresenter.OnMove -= _characterMoveRotatePresenter.Move;
+        _touchRotationInputSystemPresenter.OnRotate -= _characterMoveRotatePresenter.Rotate;
+
+        _characterSpawnerPresenter.DestroyLocalCharacter();
+        _characterCameraPresenter.DeactivateCamera();
     }
 
     private void ChangeStateToMenu()
     {
-        control.SetState(control.GetState<GameMenuState>());
+        _globalStateMachineProvider.SetState(_globalStateMachineProvider.GetState<GameMenuState>());
     }
 }

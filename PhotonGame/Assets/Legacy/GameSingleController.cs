@@ -13,35 +13,35 @@ public class GameSingleController : MonoBehaviour
     private CharacterInteractor characterInteractor;
     public void Initialize()
     {
-        roomInteractor = Game.GetInteractor<RoomInteractor>();
-        characterInteractor = Game.GetInteractor<CharacterInteractor>();
+        //roomInteractor = Game.GetInteractor<RoomInteractor>();
+        //characterInteractor = Game.GetInteractor<CharacterInteractor>();
 
-        roomInteractor.SpawnRandomRoom();
+        //roomInteractor.SpawnRandomRoom();
     }
 
     public void PlayGame()
     {
         OnPlayGame?.Invoke();
-        characterInteractor.SpawnLocalCharacter();
+        //characterInteractor.SpawnLocalCharacter();
     }
 
     public void ExitGame()
     {
         OnExitGame?.Invoke();
-        characterInteractor.DestroyLocalCharacter();
+        //characterInteractor.DestroyLocalCharacter();
     }
 
     private void ChangeLocalRoom()
     {
-        OnChangeRoom?.Invoke();
+        //OnChangeRoom?.Invoke();
     }
 
     public void ChooseRandomChannel()
     {
-        if (!photonInteractor.IsConnected)
-        {
-            ChangeLocalRoom();
-            return;
-        }
+        //if (!photonInteractor.IsConnected)
+        //{
+        //    ChangeLocalRoom();
+        //    return;
+        //}
     }
 }

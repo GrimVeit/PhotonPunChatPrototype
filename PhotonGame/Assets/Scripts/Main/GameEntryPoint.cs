@@ -149,8 +149,8 @@ public class GameEntryPoint : MonoBehaviour
 
         currentSceneContainer = new DIContainer(mainGameContainer);
         var sceneEntryPoint = Object.FindObjectOfType<SingleplayerSceneEntryPoint>();
-        sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
-        sceneEntryPoint.OnLoadTransitScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
+        //sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
+        //sceneEntryPoint.OnLoadTransitScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
         sceneEntryPoint.Run(currentSceneContainer);
 
         yield return rootView.HideLoadingScreen();
@@ -170,8 +170,8 @@ public class GameEntryPoint : MonoBehaviour
 
         currentSceneContainer = new DIContainer(mainGameContainer);
         var sceneEntryPoint = Object.FindObjectOfType<MultiplayerSceneEntryPoint>();
-        sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
-        sceneEntryPoint.OnLoadMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
+        //sceneEntryPoint.OnLoadSingleplayerScene += () => coroutines.StartCoroutine(LoadAndStartSingleplayerScene());
+        //sceneEntryPoint.OnLoadMultiplayerScene += () => coroutines.StartCoroutine(LoadAndStartMultiplayerScene());
         sceneEntryPoint.Run(currentSceneContainer);
 
         yield return rootView.HideLoadingScreen();
