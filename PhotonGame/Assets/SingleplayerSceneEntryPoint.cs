@@ -19,6 +19,9 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
     private ChooseNetworkServerPresenter chooseNetworkServerPresenter;
     private ChooseNetworkChannelPresenter chooseNetworkChannelPresenter;
 
+    private JoystickInputSystemPresenter joystickInputSystemPresenter;
+    private TouchRotationInputSystemPresenter touchRotationInputSystemPresenter;
+
     private PhotonChatPresenter photonChatPresenter;
     private CharacterSpawnerPresenter characterSpawnerPresenter;
     private CharacterPresenter characterPresenter;
@@ -43,6 +46,16 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
 
     private void Initialize()
     {
+        joystickInputSystemPresenter = new JoystickInputSystemPresenter
+            (new JoystickInputSystemModel(), 
+            viewContainer.GetView<JoystickInputSystemView>());
+        joystickInputSystemPresenter.Initialize();
+
+        touchRotationInputSystemPresenter = new TouchRotationInputSystemPresenter
+            (new TouchRotationInputSystemModel(), 
+            viewContainer.GetView<TouchRotationInputSystemView>());
+        touchRotationInputSystemPresenter.Initialize();
+
         photonNetworkPresenter = new PhotonNetworkPresenter
             (dIContainer.Resolve<PhotonNetworkModel>());
         photonNetworkPresenter.Initialize();
@@ -71,6 +84,8 @@ public class SingleplayerSceneEntryPoint : MonoBehaviour
             viewContainer.GetView<CharacterView>());
         characterPresenter.Initialize();
 
+        dIContainer.RegisterInstance(joystickInputSystemPresenter);
+        dIContainer.RegisterInstance(touchRotationInputSystemPresenter);
         dIContainer.RegisterInstance(photonNetworkPresenter);
         dIContainer.RegisterInstance(photonChatPresenter);
         dIContainer.RegisterInstance(chooseNetworkServerPresenter);

@@ -1,67 +1,26 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class CharacterModel
+public class TouchRotationInputSystemModel
 {
-    public event Action<Vector2> OnMove;
+    public event Action OnStartRotate;
     public event Action<Vector2> OnRotate;
+    public event Action OnEndRotate;
 
-    private IEnumerator coroutineMove;
+    private bool isActiveRotate;
     private IEnumerator coroutineRotate;
-
-    private Vector3 moveDirection;
     private Vector2 rotateDirection;
-
-    private bool isActiveMove = false;
-    private bool isActiveRotate = false;
-
-    #region Move
-
-    public void SetDirection(Vector2 vector)
-    {
-        moveDirection = vector;
-    }
-
-    public void ActivateMove()
-    {
-        isActiveMove = true;
-
-        if(coroutineMove != null)
-            Coroutines.Stop(coroutineMove);
-
-        coroutineMove = MoveCoroutine();
-        Coroutines.Start(coroutineMove);
-    }
-
-    public void DeactivateMove()
-    {
-        isActiveMove = false;
-
-        if (coroutineMove != null)
-            Coroutines.Stop(coroutineMove);
-
-        OnMove?.Invoke(Vector3.zero);
-    }
-
-    private IEnumerator MoveCoroutine()
-    {
-        while (isActiveMove)
-        {
-            OnMove?.Invoke(moveDirection);
-            yield return null;
-        }
-    }
-
-    #endregion
-
-    #region Rotate
 
     public void ActivateRotate(int pointerId, Vector3 pointerOld)
     {
+        OnStartRotate?.Invoke();
+
         isActiveRotate = true;
 
-        if(coroutineRotate != null)
+        if (coroutineRotate != null)
             Coroutines.Stop(coroutineRotate);
 
         coroutineRotate = RotateCoroutine(pointerId, pointerOld);
@@ -70,6 +29,8 @@ public class CharacterModel
 
     public void DeactivateRotate()
     {
+        OnEndRotate?.Invoke();
+
         if (coroutineRotate != null)
             Coroutines.Stop(coroutineRotate);
     }
@@ -93,7 +54,4 @@ public class CharacterModel
             yield return null;
         }
     }
-
-    #endregion
-
 }
